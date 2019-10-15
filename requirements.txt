@@ -1,0 +1,8 @@
+black
+django
+djangorestframework
+django-cors-headers
+django-filter
+django-rest-auth
+ipdb
+markdown
