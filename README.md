@@ -1,3 +1,9 @@
+| branch  | status |
+|---------|--------|
+| master  | [![Build Status](https://travis-ci.com/timelytasks/timelyapi.svg?branch=master)](https://travis-ci.com/timelytasks/timelyapi)  |
+| develop | [![Build Status](https://travis-ci.com/timelytasks/timelyapi.svg?branch=develop)](https://travis-ci.com/timelytasks/timelyapi) |
+
+
 # Timely tasks
 
 A to do list with timer and calendar integration (something like gantt)
