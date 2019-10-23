@@ -1,8 +1,11 @@
 black
+coverage
 django
 djangorestframework
 django-cors-headers
 django-filter
+django-guardian
 django-rest-auth
+invoke
 ipdb
 markdown
