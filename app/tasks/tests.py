@@ -1,6 +1,7 @@
 from django.test import TestCase
 from app.tasks.models import Task
 
+
 # Create your tests here.
 class TaskTest(TestCase):
     def setUp(self):

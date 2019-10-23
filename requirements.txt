@@ -1,4 +1,5 @@
 black
+codecov
 coverage
 django
 djangorestframework
@@ -9,3 +10,4 @@ django-rest-auth
 invoke
 ipdb
 markdown
+flake8

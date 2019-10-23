@@ -3,6 +3,7 @@ from rest_framework import viewsets
 from .models import Task
 from .serializers import TasksSerializer
 
+
 # Create your views here.
 class TaskViewSet(viewsets.ModelViewSet):
     """
