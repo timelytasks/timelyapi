@@ -9,14 +9,7 @@ class TaskTest(TestCase):
 
     def test_task_attribute(self):
         task = Task.objects.get(title="Task 1")
-        attributes = [
-            '_state',
-            'id',
-            'title',
-            'description',
-            'created',
-            'completed'
-        ]
+        attributes = ["_state", "id", "title", "description", "created", "completed"]
         for att in attributes:
             self.assertIn(att, list(vars(task)))
         self.assertEqual(task.description, "Example task")

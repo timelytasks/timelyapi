@@ -7,9 +7,10 @@ class Task(models.Model):
     description = models.TextField(null=True)
     created = models.DateTimeField(auto_now_add=True, null=False)
     completed = models.BooleanField(default=False, null=False)
+    creator = models.ForeignKey('auth.User', related_name='tasks', on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ['created']
+        ordering = ["created"]
 
     def __str__(self):
         return self.title
