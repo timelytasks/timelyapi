@@ -9,7 +9,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows tasks to be created, viewed, edited or deleted.
     """
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     queryset = Task.objects.all().order_by("created")
     serializer_class = TasksSerializer
 
