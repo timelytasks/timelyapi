@@ -1,0 +1,23 @@
+os: linux
+dist: xenial
+sudo: required
+env:
+  global:
+    - CC_TEST_REPORTER_ID=269dda042f8bf072ca652c3591bd75223d148833f63e2cfc98af5878c32182b7
+language: python
+cache: pip
+python:
+  - 3.6.5
+install:
+  - pip install -r requirements.txt
+script:
+  - inv test
+before_script:
+  - curl -L "https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64"
+    > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+after_success:
+  - codecov
