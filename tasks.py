@@ -14,6 +14,12 @@ def run(c):
 
 
 @task
+def t(c):
+    test(c)
+    c.run("coverage html")
+
+
+@task
 def test(c):
     """ Run test suite """
     c.run("flake8 tasks.py")
