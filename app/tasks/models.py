@@ -10,9 +10,9 @@ class Task(models.Model):
     creator = models.ForeignKey(
         "auth.User", related_name="tasks", on_delete=models.CASCADE
     )
-    # shared_with = models.ManyToManyField(
-    #     'auth.User', related_name='tasks', on_delete=models.CASCADE
-    # )
+    shared_with = models.ManyToManyField(
+        'auth.User'
+    )
 
     class Meta:
         ordering = ["created"]
