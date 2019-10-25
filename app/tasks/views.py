@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Q
 from rest_framework import viewsets, permissions
 from app.tasks.models import Task
 from app.tasks.serializers import TasksSerializer
@@ -18,4 +19,11 @@ class TaskViewSet(viewsets.ModelViewSet):
         serializer.save(creator=self.request.user)
 
     def get_queryset(self):
-        return Task.objects.filter(creator=self.request.user).order_by("created")
+        """
+        Gets all tasks that have been created by or shared with someone
+        """
+        query_shared = self.request.user.task_set.all()
+        query_creator = Task.objects.filter(creator=self.request.user)
+        full_query = (query_creator | query_shared)
+
+        return full_query.distinct().order_by("created")
