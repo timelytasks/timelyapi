@@ -40,3 +40,9 @@ def sh(c):
     """ Shell command """
     # shell_plus
     c.run("python manage.py shell", pty=True)
+
+
+@task
+def h(c):
+    """ Opens coverage home page """
+    c.run("python -m webbrowser -t \"htmlcov/index.html\"")
