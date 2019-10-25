@@ -7,5 +7,7 @@ services:
     volumes:
       - ./app:/code/app
       - ./manage.py:/code/manage.py
+      - ./db.sqlite3:/code/db.sqlite3
+      - ./tasks.py:/code/tasks.py
     ports:
-      - "8000:8000"
+      - 8000:8000
