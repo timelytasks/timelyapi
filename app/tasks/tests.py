@@ -4,7 +4,6 @@ from app.users.apps import UsersConfig
 
 
 class UserTest(TestCase):
-
     def test_apps(self):
-        self.assertEqual(UsersConfig.name, 'users')
-        self.assertEqual(apps.get_app_config('users').name, 'app.users')
+        self.assertEqual(UsersConfig.name, "users")
+        self.assertEqual(apps.get_app_config("users").name, "app.users")

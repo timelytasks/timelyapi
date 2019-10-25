@@ -21,11 +21,11 @@ from app.users.views import UserViewSet
 
 version = "v1"
 router = routers.DefaultRouter()
-router.register(r"tasks", TaskViewSet)
-router.register(r"users", UserViewSet)
+router.register(r"tasks", TaskViewSet, basename="Tasks")
+router.register(r"users", UserViewSet, basename="Users")
 
 urlpatterns = [
-    path(f"api/{version}/auth/", include('rest_framework.urls')),
+    path(f"api/{version}/auth/", include("rest_framework.urls")),
     path(f"api/{version}/", include(router.urls)),
-    path("admin/", admin.site.urls)
+    path("admin/", admin.site.urls),
 ]

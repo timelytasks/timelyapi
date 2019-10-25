@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from . import models
+from app.tasks.models import Task
 
 
-class TasksSerializer(serializers.HyperlinkedModelSerializer):
+class TasksSerializer(serializers.ModelSerializer):
 
     creator = serializers.ReadOnlyField(source="creator.username")
 
     class Meta:
-        fields = ("id", "title", "description", "creator", "completed", "created", "url")
-        model = models.Task
+        fields = ("id", "title", "description", "creator", "completed", "created")
+        model = Task
