@@ -18,9 +18,11 @@ from django.urls import path, include
 from rest_framework import routers
 from app.tasks.views import TaskViewSet
 from app.users.views import UserViewSet
+from app.projects.views import ProjectViewSet
 
 version = "v1"
 router = routers.DefaultRouter()
+router.register(r"projects", ProjectViewSet, basename="Projects")
 router.register(r"tasks", TaskViewSet, basename="Tasks")
 router.register(r"users", UserViewSet, basename="Users")
 

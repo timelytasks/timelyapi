@@ -24,6 +24,6 @@ class TaskViewSet(viewsets.ModelViewSet):
         """
         query_shared = self.request.user.task_set.all()
         query_creator = Task.objects.filter(creator=self.request.user)
-        full_query = (query_creator | query_shared)
+        full_query = query_creator | query_shared
 
         return full_query.distinct().order_by("created")

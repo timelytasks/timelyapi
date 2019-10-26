@@ -8,13 +8,13 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('tasks', '0001_initial'),
+        ("tasks", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='task',
-            name='shared_with',
+            model_name="task",
+            name="shared_with",
             field=models.ManyToManyField(to=settings.AUTH_USER_MODEL),
-        ),
+        )
     ]

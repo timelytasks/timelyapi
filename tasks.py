@@ -39,7 +39,7 @@ def mm(c):
 def sh(c):
     """ Shell command """
     # shell_plus
-    c.run("python manage.py shell", pty=True)
+    c.run("python manage.py shell_plus --ipython", pty=True)
 
 
 @task

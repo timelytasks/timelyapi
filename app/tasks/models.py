@@ -1,4 +1,5 @@
 from django.db import models
+from app.projects.models import Project
 
 
 class Task(models.Model):
@@ -10,8 +11,9 @@ class Task(models.Model):
     creator = models.ForeignKey(
         "auth.User", related_name="tasks", on_delete=models.CASCADE
     )
-    shared_with = models.ManyToManyField(
-        'auth.User'
+    shared_with = models.ManyToManyField("auth.User")
+    project = models.ForeignKey(
+        "projects.Project", related_name="project", on_delete=models.CASCADE
     )
 
     class Meta:
