@@ -8,9 +8,15 @@ def b(c):
 
 
 @task
-def run(c):
+def r(c):
     """ Run API """
     c.run("python manage.py runserver", pty=True)
+
+
+@task
+def cu(c):
+    """ Create super user """
+    c.run("python manage.py createsuperuser", pty=True)
 
 
 @task
