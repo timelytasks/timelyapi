@@ -7,24 +7,26 @@ import djmoney.models.fields
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('projects', '0001_initial'),
-    ]
+    dependencies = [("projects", "0001_initial")]
 
     operations = [
         migrations.AlterField(
-            model_name='project',
-            name='initial_value',
-            field=djmoney.models.fields.MoneyField(decimal_places=2, default_currency='BRL', max_digits=10, null=True),
+            model_name="project",
+            name="initial_value",
+            field=djmoney.models.fields.MoneyField(
+                decimal_places=2, default_currency="BRL", max_digits=10, null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='project',
-            name='shared_with',
+            model_name="project",
+            name="shared_with",
             field=models.ManyToManyField(blank=True, to=settings.AUTH_USER_MODEL),
         ),
         migrations.AlterField(
-            model_name='project',
-            name='value',
-            field=djmoney.models.fields.MoneyField(decimal_places=2, default_currency='BRL', max_digits=10, null=True),
+            model_name="project",
+            name="value",
+            field=djmoney.models.fields.MoneyField(
+                decimal_places=2, default_currency="BRL", max_digits=10, null=True
+            ),
         ),
     ]

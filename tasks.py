@@ -51,4 +51,4 @@ def sh(c):
 @task
 def h(c):
     """ Opens coverage home page """
-    c.run("python -m webbrowser -t \"htmlcov/index.html\"")
+    c.run('python -m webbrowser -t "htmlcov/index.html"')

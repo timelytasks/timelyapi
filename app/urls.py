@@ -27,7 +27,8 @@ router.register(r"tasks", TaskViewSet, basename="Tasks")
 router.register(r"users", UserViewSet, basename="Users")
 
 urlpatterns = [
-    path(f"api/{version}/auth/", include("rest_framework.urls")),
+    path(f"api/{version}/auth/", include("rest_auth.urls")),
+    path(f"api/{version}/auth/registration/", include("rest_auth.registration.urls")),
     path(f"api/{version}/", include(router.urls)),
     path("admin/", admin.site.urls),
 ]

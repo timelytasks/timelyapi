@@ -8,7 +8,7 @@ django-extensions
 django-filter
 django-guardian
 django-money
-django-rest-auth
+django-rest-auth[with_social]
 invoke
 ipdb
 markdown

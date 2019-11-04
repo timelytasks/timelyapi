@@ -17,7 +17,9 @@ class Task(models.Model):
     # project = models.ForeignKey(
     #     "projects.Project", related_name="project", on_delete=models.CASCADE
     # )
-    value = MoneyField(max_digits=10, decimal_places=2, default_currency=settings.CURRENCY, null=True)
+    value = MoneyField(
+        max_digits=10, decimal_places=2, default_currency=settings.CURRENCY, null=True
+    )
     completed = models.BooleanField(default=False, null=False)
 
     class Meta:

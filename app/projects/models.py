@@ -13,11 +13,14 @@ class Project(models.Model):
         "auth.User", related_name="projects", on_delete=models.CASCADE
     )
     shared_with = models.ManyToManyField("auth.User", blank=True)
-    value = MoneyField(max_digits=10, decimal_places=2, default_currency=settings.CURRENCY, null=True)
-    initial_value = MoneyField(max_digits=10, decimal_places=2, default_currency=settings.CURRENCY, null=True)
+    value = MoneyField(
+        max_digits=10, decimal_places=2, default_currency=settings.CURRENCY, null=True
+    )
+    initial_value = MoneyField(
+        max_digits=10, decimal_places=2, default_currency=settings.CURRENCY, null=True
+    )
     tasks = models.ManyToManyField("tasks.Task", blank=True)
     completed = models.BooleanField(default=False, null=False)
-
 
     class Meta:
         ordering = ["created"]

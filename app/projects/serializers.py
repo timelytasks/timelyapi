@@ -6,7 +6,7 @@ from app.tasks.serializers import TasksSerializer
 class ProjectsSerializer(serializers.ModelSerializer):
 
     creator = serializers.ReadOnlyField(source="creator.username")
-    tasks = TasksSerializer(required=False, many=True)
+    # tasks = TasksSerializer(required=False, many=True)
 
     class Meta:
         fields = (
