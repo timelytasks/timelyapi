@@ -85,3 +85,5 @@ https://stackoverflow.com/questions/46125398/how-to-display-only-values-in-djang
 https://www.peterbe.com/plog/efficient-m2m-django-rest-framework
 
 https://stackoverflow.com/questions/46125398/how-to-display-only-values-in-django-serializers
+
+https://hakibenita.com/django-rest-framework-slow

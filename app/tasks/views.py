@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Q
+from rest_framework.exceptions import PermissionDenied
 from rest_framework import viewsets, permissions
 from app.tasks.models import Task
 from app.tasks.serializers import TasksSerializer
@@ -16,7 +17,12 @@ class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TasksSerializer
 
     def perform_create(self, serializer):
-        serializer.save(creator=self.request.user)
+        import ipdb; ipdb.set_trace(context=10)
+        if serializer.data.get("project") in self.request.user.project_set.all():
+            serializer.save(creator=self.request.user)
+        else:
+            serializer.data = None
+            return PermissionDenied()
 
     def get_queryset(self):
         """

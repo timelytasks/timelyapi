@@ -14,9 +14,9 @@ class Task(models.Model):
         "auth.User", related_name="tasks", on_delete=models.CASCADE
     )
     shared_with = models.ManyToManyField("auth.User", blank=True)
-    # project = models.ForeignKey(
-    #     "projects.Project", related_name="project", on_delete=models.CASCADE
-    # )
+    project = models.ForeignKey(
+        "projects.Project", related_name="project", on_delete=models.CASCADE, null=True
+    )
     value = MoneyField(
         max_digits=10, decimal_places=2, default_currency=settings.CURRENCY, null=True
     )

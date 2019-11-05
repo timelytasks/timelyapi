@@ -1,12 +1,13 @@
 from rest_framework import serializers
 from app.projects.models import Project
 from app.tasks.serializers import TasksSerializer
+from app.users.serializers import UserSerializer
 
 
 class ProjectsSerializer(serializers.ModelSerializer):
 
     creator = serializers.ReadOnlyField(source="creator.username")
-    # tasks = TasksSerializer(required=False, many=True)
+    shared_with = UserSerializer(many=True)
 
     class Meta:
         fields = (
@@ -14,7 +15,6 @@ class ProjectsSerializer(serializers.ModelSerializer):
             "title",
             "description",
             "created",
-            "tasks",
             "due_date",
             "creator",
             "shared_with",

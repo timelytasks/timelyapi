@@ -19,7 +19,7 @@ class Project(models.Model):
     initial_value = MoneyField(
         max_digits=10, decimal_places=2, default_currency=settings.CURRENCY, null=True
     )
-    tasks = models.ManyToManyField("tasks.Task", blank=True)
+    # tasks = models.ManyToManyField("tasks.Task", blank=True)
     completed = models.BooleanField(default=False, null=False)
 
     class Meta:
