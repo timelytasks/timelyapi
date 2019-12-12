@@ -22,6 +22,18 @@ class Project(models.Model):
     # tasks = models.ManyToManyField("tasks.Task", blank=True)
     completed = models.BooleanField(default=False, null=False)
 
+    TASK = 1
+    BUDGET = 2
+    DIARY = 3
+
+    TYPE_OF_PROJECT_CHOICES = [
+        (TASK, 'Task project'),
+        (BUDGET, 'Budget project'),
+        (DIARY, 'Diary project'),
+    ]
+
+    type_of_project = models.IntegerField(choices=TYPE_OF_PROJECT_CHOICES, default=TASK)
+
     class Meta:
         ordering = ["created"]
 

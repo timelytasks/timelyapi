@@ -17,7 +17,6 @@ class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TasksSerializer
 
     def perform_create(self, serializer):
-        import ipdb; ipdb.set_trace(context=10)
         if serializer.data.get("project") in self.request.user.project_set.all():
             serializer.save(creator=self.request.user)
         else:

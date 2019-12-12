@@ -8,11 +8,14 @@ class ProjectsSerializer(serializers.ModelSerializer):
 
     creator = serializers.ReadOnlyField(source="creator.username")
     shared_with = UserSerializer(many=True)
+    type_of_project_name = serializers.CharField(source='get_type_of_project_display')
 
     class Meta:
         fields = (
             "id",
             "title",
+            "type_of_project_name",
+            "type_of_project",
             "description",
             "created",
             "due_date",
