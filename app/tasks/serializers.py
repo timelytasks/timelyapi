@@ -7,5 +7,15 @@ class TasksSerializer(serializers.ModelSerializer):
     creator = serializers.ReadOnlyField(source="creator.username")
 
     class Meta:
-        fields = ("id", "title", "description", "creator", "shared_with", "completed", "created")
+        fields = (
+            "id",
+            "title",
+            "project",
+            "description",
+            "creator",
+            "value",
+            "shared_with",
+            "completed",
+            "created",
+        )
         model = Task

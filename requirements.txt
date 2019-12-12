@@ -4,9 +4,11 @@ coverage
 django
 djangorestframework
 django-cors-headers
+django-extensions
 django-filter
 django-guardian
-django-rest-auth
+django-money
+django-rest-auth[with_social]
 invoke
 ipdb
 markdown

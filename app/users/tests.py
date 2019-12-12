@@ -4,6 +4,7 @@ from app.tasks.models import Task
 from app.tasks.apps import TasksConfig
 from django.contrib.auth.models import User
 
+
 class TaskTest(TestCase):
     def setUp(self):
         admin = User.objects.create_user("admin")

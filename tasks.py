@@ -8,9 +8,15 @@ def b(c):
 
 
 @task
-def run(c):
+def r(c):
     """ Run API """
     c.run("python manage.py runserver", pty=True)
+
+
+@task
+def cu(c):
+    """ Create super user """
+    c.run("python manage.py createsuperuser", pty=True)
 
 
 @task
@@ -39,4 +45,10 @@ def mm(c):
 def sh(c):
     """ Shell command """
     # shell_plus
-    c.run("python manage.py shell", pty=True)
+    c.run("python manage.py shell_plus --ipython", pty=True)
+
+
+@task
+def h(c):
+    """ Opens coverage home page """
+    c.run('python -m webbrowser -t "htmlcov/index.html"')

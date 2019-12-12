@@ -1,5 +1,5 @@
-# Container base: python 3.7 Alpine Linux
-FROM python:3.7-alpine
+# Container base: python 3.7 Linux
+FROM python:3.7
 
 ENV PYTHONUNBUFFERED 1
 

@@ -18,14 +18,17 @@ from django.urls import path, include
 from rest_framework import routers
 from app.tasks.views import TaskViewSet
 from app.users.views import UserViewSet
+from app.projects.views import ProjectViewSet
 
 version = "v1"
 router = routers.DefaultRouter()
+router.register(r"projects", ProjectViewSet, basename="Projects")
 router.register(r"tasks", TaskViewSet, basename="Tasks")
 router.register(r"users", UserViewSet, basename="Users")
 
 urlpatterns = [
-    path(f"api/{version}/auth/", include("rest_framework.urls")),
+    path(f"api/{version}/auth/", include("rest_auth.urls")),
+    path(f"api/{version}/auth/registration/", include("rest_auth.registration.urls")),
     path(f"api/{version}/", include(router.urls)),
     path("admin/", admin.site.urls),
 ]

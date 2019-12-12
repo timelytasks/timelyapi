@@ -79,3 +79,11 @@ https://docs.python.org/3/library/time.html
 # Interesting reads
 
 https://stackoverflow.com/questions/49482453/generics-vs-viewset-in-django-rest-framework-how-to-prefer-which-one-to-use
+
+https://stackoverflow.com/questions/46125398/how-to-display-only-values-in-django-serializers
+
+https://www.peterbe.com/plog/efficient-m2m-django-rest-framework
+
+https://stackoverflow.com/questions/46125398/how-to-display-only-values-in-django-serializers
+
+https://hakibenita.com/django-rest-framework-slow
