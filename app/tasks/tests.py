@@ -10,8 +10,8 @@ from django.contrib.auth.models import User
 
 class TasksTest(TestCase):
     def setUp(self):
-        user = User.objects.create_user("user")
-        project = Project.objects.create(title="Project example", creator=user)
+        self.user = User.objects.create_user("user")
+        self.project = Project.objects.create(title="Project example", creator=user)
         Task.objects.create(
             title="Task 1", description="Example task", creator=user, project=project
         )

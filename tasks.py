@@ -21,6 +21,7 @@ def cu(c):
 
 @task
 def t(c):
+    """ Run Travis CI pipeline """
     test(c)
     c.run("coverage html")
 
