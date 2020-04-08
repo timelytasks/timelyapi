@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from app.projects.models import Project
-from app.tasks.serializers import TasksSerializer
+from app.projects.models import Project, Task
 from app.users.serializers import UserSerializer
+from rest_framework import serializers
 
 
 class ProjectsSerializer(serializers.ModelSerializer):
@@ -26,3 +26,22 @@ class ProjectsSerializer(serializers.ModelSerializer):
             "completed",
         )
         model = Project
+
+
+class TasksSerializer(serializers.ModelSerializer):
+
+    creator = serializers.ReadOnlyField(source="creator.username")
+
+    class Meta:
+        fields = (
+            "id",
+            "title",
+            "project",
+            "description",
+            "creator",
+            "value",
+            "shared_with",
+            "completed",
+            "created",
+        )
+        model = Task

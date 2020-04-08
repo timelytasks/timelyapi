@@ -16,9 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from app.tasks.views import TaskViewSet
 from app.users.views import UserViewSet
-from app.projects.views import ProjectViewSet
+from app.projects.views import ProjectViewSet, TaskViewSet
 
 version = "v1"
 router = routers.DefaultRouter()

@@ -1,12 +1,10 @@
-from django.shortcuts import render
 from django.db.models import Q, Sum
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from app.projects.models import Project
-from app.projects.serializers import ProjectsSerializer
-from app.projects.permissions import IsOwnerOrIsSharedWith
-from app.tasks.models import Task
+from app.projects.models import Project, Task
+from app.projects.serializers import ProjectsSerializer, TasksSerializer
+from app.projects.permissions import IsOwnerOrIsSharedWithProject, IsOwnerOrIsSharedWithTask
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -14,7 +12,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     API endpoint that allows projects to be created, viewed, edited or deleted.
     """
 
-    permission_classes = [permissions.IsAuthenticated, IsOwnerOrIsSharedWith]
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrIsSharedWithProject]
     serializer_class = ProjectsSerializer
 
     def perform_create(self, serializer):
@@ -50,3 +48,30 @@ class ProjectViewSet(viewsets.ModelViewSet):
             "completed tasks": completed_tasks,
         }
         return Response(summary_data)
+
+
+class TaskViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows tasks to be created, viewed, edited or deleted.
+    """
+
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrIsSharedWithTask]
+    serializer_class = TasksSerializer
+
+    # def perform_create(self, serializer):
+    #     import ipdb; ipdb.set_trace()
+    #     if serializer.data.get("project") in self.request.user.project_set.all():
+    #         serializer.save(creator=self.request.user)
+    #     else:
+    #         # serializer.data = None
+    #         return PermissionDenied()
+
+    def get_queryset(self):
+        """
+        Gets all tasks that have been created by or shared with someone
+        """
+        query_shared = self.request.user.task_set.all()
+        query_creator = Task.objects.filter(creator=self.request.user)
+        full_query = query_creator | query_shared
+
+        return full_query.distinct().order_by("created")
