@@ -8,9 +8,9 @@ def b(c):
 
 
 @task
-def r(c):
+def r(c, port=5000):
     """ Run API """
-    c.run("python manage.py runserver", pty=True)
+    c.run(f"python manage.py runserver {port}", pty=True)
 
 
 @task
@@ -20,17 +20,18 @@ def cu(c):
 
 
 @task
-def t(c):
+def t(c, flake=False):
     """ Run Travis CI pipeline """
-    test(c)
+    test(c, flake)
     c.run("coverage html")
 
 
 @task
-def test(c):
+def test(c, flake=False):
     """ Run test suite """
-    c.run("flake8 tasks.py")
-    c.run("flake8 app/")
+    if flake:
+        c.run("flake8 tasks.py")
+        c.run("flake8 app/")
     c.run("coverage run --source='app' manage.py test", pty=True)
     c.run("coverage report")
 

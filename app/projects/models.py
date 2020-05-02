@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 from djmoney.models.fields import MoneyField
 
 
@@ -12,7 +13,7 @@ class Project(models.Model):
     creator = models.ForeignKey(
         "auth.User", related_name="projects", on_delete=models.CASCADE
     )
-    shared_with = models.ManyToManyField("auth.User", blank=True)
+    # shared_with = models.ManyToManyField("auth.User", blank=True)
     value = MoneyField(
         max_digits=10, decimal_places=2, default_currency=settings.CURRENCY, null=True
     )
@@ -26,13 +27,14 @@ class Project(models.Model):
     BUDGET = 2
     DIARY = 3
 
-    TYPE_OF_PROJECT_CHOICES = [
-        (TASK, 'Task project'),
-        (BUDGET, 'Budget project'),
-        (DIARY, 'Diary project'),
-    ]
+    class TypeOfProject(models.TextChoices):
+        TASK = "TK", _("Task project")
+        FINANCE = "FN", _("Finance project")
+        DIARY = "DR", _("Diary project")
 
-    type_of_project = models.IntegerField(choices=TYPE_OF_PROJECT_CHOICES, default=TASK)
+    type_of_project = models.CharField(
+        max_length=2, choices=TypeOfProject.choices, default=TypeOfProject.TASK
+    )
 
     class Meta:
         ordering = ["created"]

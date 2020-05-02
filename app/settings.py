@@ -86,7 +86,7 @@ WSGI_APPLICATION = "app.wsgi.application"
 REST_FRAMEWORK = {
     # REST Filtering
     # https://www.django-rest-framework.org/api-guide/filtering/
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"]
 }
 
 # Database
