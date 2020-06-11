@@ -8,22 +8,35 @@ def b(c):
 
 
 @task
-def run(c):
+def r(c, port=5000):
     """ Run API """
-    c.run("python manage.py runserver", pty=True)
+    c.run(f"python manage.py runserver {port}", pty=True)
 
 
 @task
-def t(c):
-    test(c)
+def cu(c):
+    """ Create super user """
+    c.run("python manage.py createsuperuser", pty=True)
+
+
+@task
+def t(c, flake=False):
+    """ Run Travis CI pipeline """
+    test(c, flake)
     c.run("coverage html")
 
 
 @task
-def test(c):
-    """ Run test suite """
+def f(c):
+    """ Run flake8 code analysis"""
     c.run("flake8 tasks.py")
     c.run("flake8 app/")
+
+@task
+def test(c, flake=False):
+    """ Run test suite """
+    if flake:
+        f(c)
     c.run("coverage run --source='app' manage.py test", pty=True)
     c.run("coverage report")
 
@@ -38,4 +51,11 @@ def mm(c):
 @task
 def sh(c):
     """ Shell command """
-    c.run("python manage.py shell", pty=True)
+    # shell_plus
+    c.run("python manage.py shell_plus --ipython", pty=True)
+
+
+@task
+def h(c):
+    """ Opens coverage home page """
+    c.run('python -m webbrowser -t "htmlcov/index.html"')

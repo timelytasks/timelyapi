@@ -37,11 +37,18 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_extensions",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "rest_auth",
     "corsheaders",
+    "djmoney",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "rest_auth.registration",
     "app.users",
     "app.projects",
-    "app.tasks",
-    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -75,6 +82,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "app.wsgi.application"
 
+
+REST_FRAMEWORK = {
+    # REST Filtering
+    # https://www.django-rest-framework.org/api-guide/filtering/
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"]
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -119,6 +132,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+CURRENCY = "BRL"
+
+SITE_ID = 1
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
