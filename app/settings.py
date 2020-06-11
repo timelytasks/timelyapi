@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     "rest_auth.registration",
     "app.users",
     "app.projects",
-    "app.tasks",
 ]
 
 MIDDLEWARE = [
@@ -83,6 +82,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "app.wsgi.application"
 
+
+REST_FRAMEWORK = {
+    # REST Filtering
+    # https://www.django-rest-framework.org/api-guide/filtering/
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"]
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
