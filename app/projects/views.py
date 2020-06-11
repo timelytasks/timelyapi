@@ -19,17 +19,24 @@ class ProjectViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectsSerializer
 
     def perform_create(self, serializer):
-        serializer.save(creator=self.request.user)
+        serializer.save(created_by=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(modified_by=self.request.user)
+
+    # def get_object(self):
+    #     return Project.objects.get(id=self.request.user.id)
 
     def get_queryset(self):
         """
         Gets all projects that have been created by or shared with someone
         """
-        query_shared = self.request.user.projects.all()
-        query_creator = Project.objects.filter(creator=self.request.user)
+        import ipdb; ipdb.set_trace()
+        query_shared = self.request.user.project_set.all()
+        query_creator = Project.objects.filter(created_by=self.request.user)
         full_query = query_creator | query_shared
 
-        return full_query.distinct().order_by("created")
+        return full_query.distinct().order_by("created_at")
 
     @action(detail=True, methods=["get"])
     def summary(self, request, pk=None):
@@ -65,14 +72,14 @@ class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TasksSerializer
 
     def perform_create(self, serializer):
-        serializer.save(creator=self.request.user)
+        serializer.save(created_by=self.request.user)
 
     def get_queryset(self):
         """
         Gets all tasks that have been created by or shared with someone
         """
         query_shared = self.request.user.task_set.all()
-        query_creator = Task.objects.filter(creator=self.request.user)
+        query_creator = Task.objects.filter(created_by=self.request.user)
         full_query = query_creator | query_shared
 
-        return full_query.distinct().order_by("created")
+        return full_query.distinct().order_by("created_at")

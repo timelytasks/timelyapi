@@ -27,11 +27,16 @@ def t(c, flake=False):
 
 
 @task
+def f(c):
+    """ Run flake8 code analysis"""
+    c.run("flake8 tasks.py")
+    c.run("flake8 app/")
+
+@task
 def test(c, flake=False):
     """ Run test suite """
     if flake:
-        c.run("flake8 tasks.py")
-        c.run("flake8 app/")
+        f(c)
     c.run("coverage run --source='app' manage.py test", pty=True)
     c.run("coverage report")
 

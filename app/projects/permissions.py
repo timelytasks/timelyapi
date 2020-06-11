@@ -10,11 +10,11 @@ class IsOwnerOrIsSharedWithProject(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         # Write permissions for people who have a shared status
-        if obj in request.user.projects.all():
+        if obj in request.user.project_set.all():
             return True
 
         # Write permissions are allowed to the owner of the snippet.
-        return obj.creator == request.user
+        return obj.created_by == request.user
 
 
 class IsOwnerOrIsSharedWithTask(permissions.BasePermission):
@@ -29,4 +29,4 @@ class IsOwnerOrIsSharedWithTask(permissions.BasePermission):
             return True
 
         # Write permissions are allowed to the owner of the snippet.
-        return obj.creator == request.user
+        return obj.created_by == request.user

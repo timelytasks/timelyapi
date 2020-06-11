@@ -8,12 +8,17 @@ class Project(models.Model):
 
     title = models.CharField(max_length=200, null=False)
     description = models.TextField(null=True)
-    created = models.DateTimeField(auto_now_add=True, null=False)
+    created_at = models.DateTimeField(auto_now_add=True, null=False)
+    modified_at = models.DateTimeField(auto_now=True, null=False)
+
     due_date = models.DateTimeField(null=True)
-    creator = models.ForeignKey(
-        "auth.User", related_name="projects", on_delete=models.CASCADE
+    created_by = models.ForeignKey(
+        "auth.User", related_name="created_project",on_delete=models.CASCADE
     )
-    # shared_with = models.ManyToManyField("auth.User", blank=True)
+    modified_by = models.ForeignKey(
+        "auth.User", related_name="modified_project", on_delete=models.SET_NULL, null=True
+    )
+    shared_with = models.ManyToManyField("auth.User", blank=True)
     value = MoneyField(
         max_digits=10, decimal_places=2, default_currency=settings.CURRENCY, null=True
     )
@@ -37,7 +42,7 @@ class Project(models.Model):
     )
 
     class Meta:
-        ordering = ["created"]
+        ordering = ["created_at"]
 
     def __str__(self):
         return self.title
@@ -47,14 +52,18 @@ class Task(models.Model):
 
     title = models.CharField(max_length=200, null=False)
     description = models.TextField(null=True)
-    created = models.DateTimeField(auto_now_add=True, null=False)
+    created_at = models.DateTimeField(auto_now_add=True, null=False)
+    modified_at = models.DateTimeField(auto_now=True, null=False)
     due_date = models.DateTimeField(null=True)
-    creator = models.ForeignKey(
-        "auth.User", related_name="creator", on_delete=models.CASCADE
+    created_by = models.ForeignKey(
+        "auth.User", related_name="created_task",on_delete=models.CASCADE
+    )
+    modified_by = models.ForeignKey(
+        "auth.User", related_name="modified_task", on_delete=models.SET_NULL, null=True
     )
     shared_with = models.ManyToManyField("auth.User", blank=True)
     project = models.ForeignKey(
-        "projects.Project", related_name="project", on_delete=models.CASCADE, null=True
+        "projects.Project", related_name="task", on_delete=models.CASCADE, null=True
     )
     value = MoneyField(
         max_digits=10, decimal_places=2, default_currency=settings.CURRENCY, null=True
@@ -62,7 +71,7 @@ class Task(models.Model):
     completed = models.BooleanField(default=False, null=False)
 
     class Meta:
-        ordering = ["created"]
+        ordering = ["created_at"]
 
     def __str__(self):
         return self.title

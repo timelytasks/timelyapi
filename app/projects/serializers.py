@@ -5,7 +5,7 @@ from app.users.serializers import UserSerializer
 
 class ProjectsSerializer(serializers.ModelSerializer):
 
-    creator = serializers.ReadOnlyField(source="creator.username")
+    created_by = serializers.ReadOnlyField(source="created_by.username")
     shared_with = UserSerializer(many=True, required=False)
 
     class Meta:
@@ -15,7 +15,7 @@ class ProjectsSerializer(serializers.ModelSerializer):
 
 class TasksSerializer(serializers.ModelSerializer):
 
-    creator = serializers.ReadOnlyField(source="creator.username")
+    created_by = serializers.ReadOnlyField(source="created_by.username")
 
     class Meta:
         fields = "__all__"
