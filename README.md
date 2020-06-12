@@ -8,7 +8,7 @@
 
 # timelyapi
 
-A to do list API with timer and calendar integration (something like gantt)
+A to do list API with timer (WIP) and calendar (WIP) integration (something like gantt)
 
 ## Project setup
 
@@ -33,7 +33,7 @@ invoke run
 ### Lints and tests
 
 ```shell
-invoke test
+invoke t
 ```
 
 # Planning
