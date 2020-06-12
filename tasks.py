@@ -38,7 +38,7 @@ def test(c, flake=False):
     if flake:
         f(c)
     c.run("coverage run --source='app' manage.py test", pty=True)
-    c.run("coverage report")
+    c.run("coverage report", pty=True)
 
 
 @task
