@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from djmoney.models.fields import MoneyField
@@ -13,10 +14,13 @@ class Project(models.Model):
 
     due_date = models.DateTimeField(null=True)
     created_by = models.ForeignKey(
-        "auth.User", related_name="created_project",on_delete=models.CASCADE
+        "auth.User", related_name="created_project", on_delete=models.CASCADE
     )
     modified_by = models.ForeignKey(
-        "auth.User", related_name="modified_project", on_delete=models.SET_NULL, null=True
+        "auth.User",
+        related_name="modified_project",
+        on_delete=models.SET_NULL,
+        null=True,
     )
     shared_with = models.ManyToManyField("auth.User", blank=True)
     value = MoneyField(
@@ -50,13 +54,14 @@ class Project(models.Model):
 
 class Task(models.Model):
 
+    # Fields
     title = models.CharField(max_length=200, null=False)
     description = models.TextField(null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=False)
     modified_at = models.DateTimeField(auto_now=True, null=False)
     due_date = models.DateTimeField(null=True)
     created_by = models.ForeignKey(
-        "auth.User", related_name="created_task",on_delete=models.CASCADE
+        "auth.User", related_name="created_task", on_delete=models.CASCADE
     )
     modified_by = models.ForeignKey(
         "auth.User", related_name="modified_task", on_delete=models.SET_NULL, null=True
@@ -70,8 +75,20 @@ class Task(models.Model):
     )
     completed = models.BooleanField(default=False, null=False)
 
+    # Managers
+    objects = models.Manager()
+
     class Meta:
         ordering = ["created_at"]
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.project and self.value:
+            total_value = Task.objects.filter(project=self.project).aggregate(
+                total_value=Sum("value")
+            )["total_value"]
+            self.project.value = total_value
+            self.project.save()

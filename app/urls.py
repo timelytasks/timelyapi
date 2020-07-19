@@ -19,6 +19,7 @@ from rest_framework import routers
 from app.users.views import UserViewSet
 from app.projects.views import ProjectViewSet, TaskViewSet
 
+
 version = "v1"
 router = routers.DefaultRouter()
 router.register(r"projects", ProjectViewSet, basename="projects")

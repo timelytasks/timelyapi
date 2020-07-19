@@ -37,8 +37,9 @@ def test(c, flake=False):
     """ Run test suite """
     if flake:
         f(c)
-    c.run("coverage run --source='app' manage.py test", pty=True)
-    c.run("coverage report", pty=True)
+    # c.run("coverage run --source='app' manage.py test", pty=True)
+    # c.run("coverage report", pty=True)
+    c.run("pytest", pty=True)
 
 
 @task

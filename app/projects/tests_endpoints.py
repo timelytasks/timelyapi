@@ -46,7 +46,7 @@ class TasksTest(TestCase):
         self.user = User.objects.create_user(username="user", password="@user123")
         self.api.login(username="user", password="@user123")
         self.project = Project.objects.create(
-            title="Project example", created_by=self.user
+            title="Project example", created_by=self.user, value=0
         )
         Task.objects.create(
             title="Task 1",
@@ -109,3 +109,43 @@ class TasksTest(TestCase):
         response_task = response.data[0]
         for key, data in task.items():
             self.assertEqual(response_task.get(key), data)
+
+    def test_task_create_adds_project_value(self):
+        """
+        Tests if whenever task created has monetary value, it reflects on project
+        """
+        self.project = Project.objects.get(id=self.project.id)
+        self.assertEqual(self.project.value.amount, 0)
+        task = {
+            "title": "Value 10",
+            "description": "No description",
+            "created_by": self.user.id,
+            "project": self.project.id,
+            "value": 10,
+        }
+        self.api.post("/api/v1/tasks/", task)
+        self.project = Project.objects.get(id=self.project.id)
+        self.assertEqual(self.project.value.amount, 10)
+
+    def test_task_update_adds_project_value(self):
+        """
+        Tests if whenever task gets updated, it's monetary value is reflects on project
+        """
+        self.project = Project.objects.get(id=self.project.id)
+        self.assertEqual(self.project.value.amount, 0)
+        task = {
+            "title": "Value 10",
+            "description": "No description",
+            "created_by": self.user.id,
+            "project": self.project.id,
+            "value": 10,
+        }
+        created_data = self.api.post("/api/v1/tasks/", task)
+        task_id = created_data.data["id"]
+        self.project = Project.objects.get(id=self.project.id)
+        self.assertEqual(self.project.value.amount, 10)
+
+        task["value"] = 5
+        created_data = self.api.patch(f"/api/v1/tasks/{task_id}/", task)
+        self.project = Project.objects.get(id=self.project.id)
+        self.assertEqual(self.project.value.amount, 5)

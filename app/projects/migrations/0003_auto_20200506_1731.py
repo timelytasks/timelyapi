@@ -9,71 +9,84 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('projects', '0002_auto_20200501_2017'),
+        ("projects", "0002_auto_20200501_2017"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='project',
-            options={'ordering': ['created_at']},
+            name="project", options={"ordering": ["created_at"]},
         ),
         migrations.AlterModelOptions(
-            name='task',
-            options={'ordering': ['created_at']},
+            name="task", options={"ordering": ["created_at"]},
         ),
         migrations.RenameField(
-            model_name='project',
-            old_name='created',
-            new_name='created_at',
+            model_name="project", old_name="created", new_name="created_at",
         ),
         migrations.RenameField(
-            model_name='task',
-            old_name='created',
-            new_name='created_at',
+            model_name="task", old_name="created", new_name="created_at",
         ),
-        migrations.RemoveField(
-            model_name='project',
-            name='creator',
-        ),
-        migrations.RemoveField(
-            model_name='task',
-            name='creator',
-        ),
+        migrations.RemoveField(model_name="project", name="creator",),
+        migrations.RemoveField(model_name="task", name="creator",),
         migrations.AddField(
-            model_name='project',
-            name='created_by',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='created_project', to=settings.AUTH_USER_MODEL),
+            model_name="project",
+            name="created_by",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="created_project",
+                to=settings.AUTH_USER_MODEL,
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='project',
-            name='modified_at',
+            model_name="project",
+            name="modified_at",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AddField(
-            model_name='project',
-            name='modified_by',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='modified_project', to=settings.AUTH_USER_MODEL),
+            model_name="project",
+            name="modified_by",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="modified_project",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='task',
-            name='created_by',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='created_task', to=settings.AUTH_USER_MODEL),
+            model_name="task",
+            name="created_by",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="created_task",
+                to=settings.AUTH_USER_MODEL,
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='task',
-            name='modified_at',
+            model_name="task",
+            name="modified_at",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AddField(
-            model_name='task',
-            name='modified_by',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='modified_task', to=settings.AUTH_USER_MODEL),
+            model_name="task",
+            name="modified_by",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="modified_task",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='project',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='task', to='projects.Project'),
+            model_name="task",
+            name="project",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="task",
+                to="projects.Project",
+            ),
         ),
     ]

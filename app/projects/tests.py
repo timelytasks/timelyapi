@@ -67,7 +67,7 @@ class TasksTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username="user", password="@user123")
         self.project = Project.objects.create(
-            title="Project example", created_by=self.user
+            title="Project example", created_by=self.user, value=0
         )
         Task.objects.create(
             title="Task 1",
@@ -102,3 +102,17 @@ class TasksTest(TestCase):
         """
         task = Task.objects.get(title="Task 1")
         self.assertEqual(str(task), "Task 1")
+
+    def test_task_updates_project_value(self):
+        """
+        Tests if whenever task created, updated or deleted has monetary value, it reflects on project
+        """
+        self.assertEqual(self.project.value.amount, 0)
+        Task.objects.create(
+            title="Value 10",
+            description="Test value",
+            created_by=self.user,
+            project=self.project,
+            value=10,
+        )
+        self.assertEqual(self.project.value.amount, 10)
