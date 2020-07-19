@@ -13,6 +13,7 @@ flake8
 invoke
 ipdb
 markdown
-pytest-checkipdb
-pytest-cov
-pytest-django
+pytest==5.4.3
+pytest-checkipdb==1.0.8
+pytest-cov==2.10.0
+pytest-django==3.9.0
