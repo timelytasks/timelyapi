@@ -31,12 +31,13 @@ class ProjectViewSet(viewsets.ModelViewSet):
         """
         Gets all projects that have been created by or shared with someone
         """
-        import ipdb; ipdb.set_trace()
-        query_shared = self.request.user.project_set.all()
-        query_creator = Project.objects.filter(created_by=self.request.user)
-        full_query = query_creator | query_shared
-
-        return full_query.distinct().order_by("created_at")
+        return (
+            Project.objects.filter(
+                Q(created_by=self.request.user) | Q(shared_with=self.request.user)
+            )
+            .distinct()
+            .order_by("created_at")
+        )
 
     @action(detail=True, methods=["get"])
     def summary(self, request, pk=None):
@@ -47,8 +48,8 @@ class ProjectViewSet(viewsets.ModelViewSet):
         Very useful for having a fast insight about the project's current status.
         Also great for building a dashboard.
         """
-        project = Project.objects.get(pk=pk)
         # get total tasks, complete, total money balance, income, expenses
+        project = Project.objects.get(pk=pk)
         total_tasks = Task.objects.filter(project_id=project.id).count()
         completed_tasks = (
             Task.objects.filter(project_id=project.id).filter(completed=True).count()
@@ -78,8 +79,10 @@ class TaskViewSet(viewsets.ModelViewSet):
         """
         Gets all tasks that have been created by or shared with someone
         """
-        query_shared = self.request.user.task_set.all()
-        query_creator = Task.objects.filter(created_by=self.request.user)
-        full_query = query_creator | query_shared
-
-        return full_query.distinct().order_by("created_at")
+        return (
+            Task.objects.filter(
+                Q(created_by=self.request.user) | Q(shared_with=self.request.user)
+            )
+            .distinct()
+            .order_by("created_at")
+        )

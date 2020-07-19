@@ -1,6 +1,3 @@
-black
-codecov
-coverage
 django
 djangorestframework
 django-cors-headers
@@ -9,10 +6,5 @@ django-filter
 django-guardian
 django-money
 django-rest-auth[with_social]
-flake8
 invoke
-ipdb
 markdown
-pytest-checkipdb
-pytest-cov
-pytest-django
