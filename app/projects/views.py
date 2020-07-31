@@ -31,13 +31,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
         """
         Gets all projects that have been created by or shared with someone
         """
-        return (
-            Project.objects.filter(
-                Q(created_by=self.request.user) | Q(shared_with=self.request.user)
-            )
-            .distinct()
-            .order_by("created_at")
-        )
+        return Project.objects.owner_or_shared_with(self.request.user)
 
     @action(detail=True, methods=["get"])
     def summary(self, request, pk=None):
@@ -79,10 +73,4 @@ class TaskViewSet(viewsets.ModelViewSet):
         """
         Gets all tasks that have been created by or shared with someone
         """
-        return (
-            Task.objects.filter(
-                Q(created_by=self.request.user) | Q(shared_with=self.request.user)
-            )
-            .distinct()
-            .order_by("created_at")
-        )
+        return Task.objects.owner_or_shared_with(self.request.user)

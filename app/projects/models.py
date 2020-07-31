@@ -3,6 +3,7 @@ from django.db.models import Sum
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from djmoney.models.fields import MoneyField
+from app.projects.managers import GenericManager
 
 
 class Project(models.Model):
@@ -31,6 +32,9 @@ class Project(models.Model):
     )
     # tasks = models.ManyToManyField("tasks.Task", blank=True)
     completed = models.BooleanField(default=False, null=False)
+
+    # Managers
+    objects = GenericManager()
 
     TASK = 1
     BUDGET = 2
@@ -76,7 +80,7 @@ class Task(models.Model):
     completed = models.BooleanField(default=False, null=False)
 
     # Managers
-    objects = models.Manager()
+    objects = GenericManager()
 
     class Meta:
         ordering = ["created_at"]
