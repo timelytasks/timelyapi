@@ -55,6 +55,13 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        if self.value is not None and self.initial_value is None:
+            self.initial_value = self.value
+        elif self.initial_value is not None and self.value is None:
+            self.value = self.initial_value
+        super().save(*args, **kwargs)
+
 
 class Task(models.Model):
 
