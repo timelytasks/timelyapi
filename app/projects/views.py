@@ -2,6 +2,7 @@ from django.db.models import Q, Sum
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from app.projects.filters import TaskFilter
 from app.projects.models import Project, Task
 from app.projects.serializers import ProjectsSerializer, TasksSerializer
 from app.projects.permissions import (
@@ -65,6 +66,7 @@ class TaskViewSet(viewsets.ModelViewSet):
 
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrIsSharedWithTask]
     serializer_class = TasksSerializer
+    filterset_class = TaskFilter
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)

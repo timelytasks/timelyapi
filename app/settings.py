@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "rest_auth.registration",
     "app.users",
     "app.projects",
+    "django_filters",
 ]
 
 MIDDLEWARE = [
