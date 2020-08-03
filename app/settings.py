@@ -87,7 +87,11 @@ WSGI_APPLICATION = "app.wsgi.application"
 REST_FRAMEWORK = {
     # REST Filtering
     # https://www.django-rest-framework.org/api-guide/filtering/
-    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"]
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
+    # REST Pagination
+    # https://www.django-rest-framework.org/api-guide/pagination/
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100,
 }
 
 # Database
