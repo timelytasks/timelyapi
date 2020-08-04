@@ -2,6 +2,7 @@ from django.db.models import Q, Sum
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from app.projects.filters import TaskFilter
 from app.projects.models import Project, Task
 from app.projects.serializers import ProjectsSerializer, TasksSerializer
 from app.projects.permissions import (
@@ -31,13 +32,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
         """
         Gets all projects that have been created by or shared with someone
         """
-        return (
-            Project.objects.filter(
-                Q(created_by=self.request.user) | Q(shared_with=self.request.user)
-            )
-            .distinct()
-            .order_by("created_at")
-        )
+        return Project.objects.owner_or_shared_with(self.request.user)
 
     @action(detail=True, methods=["get"])
     def summary(self, request, pk=None):
@@ -71,6 +66,7 @@ class TaskViewSet(viewsets.ModelViewSet):
 
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrIsSharedWithTask]
     serializer_class = TasksSerializer
+    filterset_class = TaskFilter
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
@@ -79,10 +75,4 @@ class TaskViewSet(viewsets.ModelViewSet):
         """
         Gets all tasks that have been created by or shared with someone
         """
-        return (
-            Task.objects.filter(
-                Q(created_by=self.request.user) | Q(shared_with=self.request.user)
-            )
-            .distinct()
-            .order_by("created_at")
-        )
+        return Task.objects.owner_or_shared_with(self.request.user)
