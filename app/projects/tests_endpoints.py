@@ -86,7 +86,7 @@ class TasksTest(TestCase):
         response = self.api.get("/api/v1/tasks/")
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, [])
+        self.assertEqual(dict(response.data), {'count': 0, 'next': None, 'previous': None, 'results': []})
 
     def test_task_visible_for_shared_people(self):
         """
@@ -106,7 +106,7 @@ class TasksTest(TestCase):
         response = self.api.get("/api/v1/tasks/")
 
         self.assertEqual(response.status_code, 200)
-        response_task = response.data[0]
+        response_task = response.data["results"][0]
         for key, data in task.items():
             self.assertEqual(response_task.get(key), data)
 
